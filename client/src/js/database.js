@@ -16,15 +16,15 @@ const initdb = async () =>
 export const putDb = async (content) => {
   try {
     // Create a connection to the database database and version we want to use.
-    const database = await openDB('text', 1);
+    const database = await openDB('jate', 1);
     // Create a new transaction and specify the database and data privileges.
-    const tx = database.transaction('text', 'readwrite');
+    const tx = database.transaction('jate', 'readwrite');
     // Open up the desired object store.
-    const store = tx.objectStore('text');
+    const store = tx.objectStore('jate');
     // Use the .put() method on the store and pass in the content.
-    const request = store.put({id:1, content: content});
+    const request = store.put({ id: 1, value: content });
     const result = await request;
-    console.log('🚀 - data saved to the database', result.content);
+    console.log('🚀 - data saved to the database', result.value);
   } catch(err) {
     console.log(err);
     console.error('putDb not implemented');
@@ -35,11 +35,11 @@ export const putDb = async (content) => {
 export const getDb = async () => {
   try {
     // Create a connection to the database database and version we want to use.
-    const database = await openDB('text', 1);
+    const database = await openDB('jate', 1);
     // Create a new transaction and specify the database and data privileges.
-    const tx = database.transaction('text', 'readonly');
+    const tx = database.transaction('jate', 'readonly');
     // Open up the desired object store.
-    const store = tx.objectStore('text');
+    const store = tx.objectStore('jate');
     // Use the .getAll() method to get all data in the database.
     const request = store.get(1);
     // Get confirmation of the request.
