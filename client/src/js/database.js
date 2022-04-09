@@ -14,7 +14,6 @@ const initdb = async () =>
 
 // TODO: Add logic to a method that accepts some content and adds it to the database
 export const putDb = async (content) => {
-  try {
     // Create a connection to the database database and version we want to use.
     const database = await openDB('jate', 1);
     // Create a new transaction and specify the database and data privileges.
@@ -24,16 +23,17 @@ export const putDb = async (content) => {
     // Use the .put() method on the store and pass in the content.
     const request = store.put({ id: 1, value: content });
     const result = await request;
-    console.log('🚀 - data saved to the database', result.value);
-  } catch(err) {
-    console.log(err);
-    console.error('putDb not implemented');
-  }
+
+    if (result) {
+      console.log('🚀 - data saved to the database', result.value);
+    } else {
+      console.log("Data was not properly updated")
+    }
+    
 };
 
 // TODO: Add logic for a method that gets all the content from the database
 export const getDb = async () => {
-  try {
     // Create a connection to the database database and version we want to use.
     const database = await openDB('jate', 1);
     // Create a new transaction and specify the database and data privileges.
@@ -51,11 +51,7 @@ export const getDb = async () => {
     } else {
       console.log('Data not found in the database')
     }
-    
-  } catch(err) {
-    console.log(err)
-    console.error('getDb not implemented')
-  }
+
 };
 
 initdb();
